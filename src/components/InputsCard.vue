@@ -1,5 +1,5 @@
 <template>
-  <q-card square bordered class="shadow-2 q-px-xl q-py-lg">
+  <q-card square bordered class="shadow-2 q-px-xl q-py-lg" id="input-card">
     <q-card-section>
       <q-form @submit.prevent="submitForm" class="q-gutter-y-md">
         <div v-for="(input, key) in items" :key="key">

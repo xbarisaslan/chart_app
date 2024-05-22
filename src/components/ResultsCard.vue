@@ -25,7 +25,7 @@
           />
           <q-card-actions>
             <q-btn
-              v-if="output.type === 'button'"
+              v-if="output.type === 'button' && selectedLayout === 'layout4'"
               @click="toggleChart"
               :label="chartVisible ? output.label2 : output.label"
               :color="chartVisible ? output['bg-color2'] : output['bg-color']"
@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, defineProps } from "vue";
+import { onMounted, ref, watch, defineProps, defineEmits } from "vue";
 import axios from "axios";
 
 const props = defineProps({
@@ -54,8 +54,11 @@ const props = defineProps({
 const outputs = ref([]);
 const chartVisible = ref(false);
 
+const emit = defineEmits(["chartActivated"]);
+
 const toggleChart = () => {
   chartVisible.value = !chartVisible.value;
+  emit("chartActivated");
 };
 
 const fetchOutputs = async () => {
@@ -76,6 +79,8 @@ const outputValues = ref({
   },
 });
 
+const selectedLayout = localStorage.getItem("selectedLayout");
+
 onMounted(() => {
   fetchOutputs();
 });
@@ -88,3 +93,5 @@ watch(
   }
 );
 </script>
+
+<style lang="scss" scoped></style>
